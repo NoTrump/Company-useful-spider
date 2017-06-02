@@ -1,0 +1,22 @@
+import urllib.request
+import re
+
+while True:
+    url=input('请输入你想要抓取的URL(记得加上http://):')
+    try:
+        req=urllib.request.Request(url)
+        req.add_header('User-Agent','Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36')
+        reques=urllib.request.urlopen(req)
+        
+        html=reques.read().decode('utf-8',errors='replace')
+        sku2=set()
+        a=re.compile(r'data-sku=\"(.{5,12})\"',re.DOTALL)
+        sku=a.findall(html)
+        for each in sku:
+            sku2.add(each)
+        for i in sku2:
+            print(i)
+    except:
+        print('它可能不适合你们网站哦')
+    
+        
